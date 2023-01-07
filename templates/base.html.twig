@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css?family=Dosis:400,500,600,700" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css"/>
+    {% for stylesheet in stylesheets %}
+        <link href="{{ asset('css/' ~ stylesheet) }}" rel="stylesheet" type="text/css"/>
+    {% endfor %}
 </head>
 
 <body>
@@ -19,10 +22,10 @@
     </div>
     <nav>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Courses</a></li>
-            <li><a href="#">Reservation</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li><a href="{{ path('courses') }}">Courses</a></li>
+            <li><a href="{{ path('reservation') }}">Reservation</a></li>
+            <li><a href="{{ path('about') }}">About</a></li>
         </ul>
     </nav>
 </header>
