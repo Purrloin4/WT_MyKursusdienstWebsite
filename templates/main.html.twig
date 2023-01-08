@@ -29,8 +29,9 @@
         </article>
         <article>
             <h3>Feedback</h3>
-            <p>This concept is awesome! Also, the site looks nice and stylish <em>(Jeroen)</em></p>
-            <p>Is there also a mobile app for this site? <em>(Patrick)</em></p>
+            {% for item in feedback %}
+            <p>{{ item.created|date('d/m') }} : {{ item.text }} <em>({{ item.author }})</em></p>
+            {% endfor %}
             <a href="{{ path('feedback') }}">Add feedback...</a>
         </article>
     </aside>
