@@ -3,18 +3,20 @@
 {% block content %}
     <section>
         <h3>add feedback...</h3>
-        <form action="" method="post">
+        <!-- https://symfony.com/doc/current/form/form_customization.html -->
+        <!-- using  form(feedback_form) would render the full form at once based on a default template-->
+        {{ form_start(feedback_form) }}
             <div>
                 <label for="author">Author : </label>
-                <input type="text" name="author" id="author"/>
+                {{ form_widget(feedback_form.author) }}
             </div>
             <div>
                 <label for="feedback">Feedback</label>
-                <textarea name="feedback" id="feedback"></textarea>
+                {{ form_widget(feedback_form.text) }}
             </div>
             <div>
-                <button type="submit" value="Submit" id="submit">Submit</button>
+                {{ form_widget(feedback_form.save) }}
             </div>
-        </form>
+        {{ form_end(feedback_form) }}
     </section>
 {% endblock %}

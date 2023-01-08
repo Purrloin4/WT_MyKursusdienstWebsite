@@ -2,8 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Feedback;
 use App\Repository\FeedbackRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -48,10 +54,29 @@ class CouBooksController extends AbstractController {
     }
 
     #[Route("/feedback", name: "feedback")]
-    public function feedback(): Response {
+    public function feedback(Request $request, EntityManagerInterface $em): Response {
+        // create form
+        // ref : https://symfony.com/doc/current/forms.html
+        $feedback = new Feedback();
+        $form = $this->createFormBuilder($feedback)
+            ->add('author', TextType::class)
+            ->add('text',TextareaType::class, ['label' => 'Feedback'])
+            ->add('save',SubmitType::class, ['label' => 'Submit Feedback'])
+            ->getForm();
+
+        // check if form was submitted and handle data
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $feedback = $form->getData();
+            $em->persist($feedback);
+            $em->flush();
+            return $this->redirectToRoute('home');
+        }
+
         $this->stylesheets[] = 'feedback.css';
         return $this->render('feedback.html.twig',[
-            'stylesheets'=> $this->stylesheets
+            'stylesheets'=> $this->stylesheets,
+            'feedback_form'=>$form
         ]);
     }
 
