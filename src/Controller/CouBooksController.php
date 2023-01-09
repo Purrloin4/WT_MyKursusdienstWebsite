@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Feedback;
+use App\Repository\CourseRepository;
 use App\Repository\FeedbackRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,10 +32,13 @@ class CouBooksController extends AbstractController {
     }
 
     #[Route("/courses", name: "courses")]
-    public function courses(): Response {
+    public function courses(CourseRepository $courseRepo): Response {
+        $courses = $courseRepo->findAll();
+        // $courses = $courseRepo->findAllWithBooks();
         $this->stylesheets[] = 'courses.css';
         return $this->render('courses.html.twig',[
-            'stylesheets'=> $this->stylesheets
+            'stylesheets'=> $this->stylesheets,
+            'courses' => $courses
         ]);
     }
 
