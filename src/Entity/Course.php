@@ -2,21 +2,37 @@
 
 namespace App\Entity;
 
-class Course {
+use App\Repository\CourseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: CourseRepository::class)]
+#[ORM\Table('course')]
+class Course
+{
+    #[ORM\Id]
+    #[ORM\Column(type: "string", nullable: false)]
     private ?string $id = null;
-    private int $fase;
-    private string $name;
-    private Staff $teacher;
+
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $fase = null;
+
+    #[ORM\Column(type: "string", length: 50, nullable: false)]
+    private ?string $name = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(name: "staff",nullable: false)]
+    private ?Staff $teacher = null;
+
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Book::class)]
+    private Collection $books;
 
     /**
-     * @param string $name course name
-     * @param int $fase fase in which the course is given
-     * @param Staff $teacher staff member responsible for the course
+     * Entity constructor must have no parameters
      */
-    public function __construct(string $name, int $fase, Staff $teacher) {
-        $this->name = $name;
-        $this->fase = $fase;
-        $this->teacher = $teacher;
+    public function __construct() {
+        $this->books = new ArrayCollection();
     }
 
     /**
@@ -24,15 +40,6 @@ class Course {
      */
     public function getId(): ?string {
         return $this->id;
-    }
-
-    /**
-     * @param string|null $id unique id from the database
-     * @return Course current course object
-     */
-    protected function setId(?string $id): Course {
-        $this->id = $id;
-        return $this;
     }
 
     /**
@@ -80,6 +87,40 @@ class Course {
      */
     public function setTeacher(Staff $teacher): Course {
         $this->teacher = $teacher;
+        return $this;
+    }
+
+    /**
+     * @return Collection<Book> all books in this course
+     */
+    public function getBooks(): Collection {
+        return $this->books;
+    }
+
+    /**
+     * @param Book $book book to add to this course
+     * @return Course current course object
+     */
+    public function addBook(Book $book): Course {
+        if (!$this->books->contains($book)) {
+            $this->books->add($book);
+            $book->setCourse($this);
+        }
+        return $this;
+    }
+
+    /**
+     * @param Book $book book to be removed from this course
+     * @return Course current course object
+     */
+    public function removeBook(Book $book): Course {
+        if ($this->books->contains($book)) {
+            $this->books->removeElement($book);
+            // set the owning side to null (unless already changed)
+            if ($book->getCourse() === $this) {
+                $book->setCourse(null);
+            }
+        }
         return $this;
     }
 

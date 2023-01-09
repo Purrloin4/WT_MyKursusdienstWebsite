@@ -2,31 +2,28 @@
 
 namespace App\Entity;
 
-class Student {
-    private ?int $id = null;
-    private string $email;
+use App\Repository\StudentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
-    /**
-     * @param string $email students email
-     */
-    public function __construct(string $email) {
-        $this->email = $email;
-    }
+#[ORM\Entity(repositoryClass: StudentRepository::class)]
+#[ORM\Table('student')]
+class Student
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $id = null;
+
+    #[ORM\Column(type: "string", length: 50)]
+    private ?string $email = null;
 
     /**
      * @return int|null unique id from the database
      */
     public function getId(): ?int {
         return $this->id;
-    }
-
-    /**
-     * @param int|null $id unique id from the database
-     * @return Student current student object
-     */
-    protected function setId(?int $id): Student {
-        $this->id = $id;
-        return $this;
     }
 
     /**

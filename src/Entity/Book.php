@@ -2,24 +2,42 @@
 
 namespace App\Entity;
 
+use App\Repository\BookRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: BookRepository::class)]
+#[ORM\Table('book')]
 class Book {
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer", nullable: false)]
     private ?int $id = null;
-    private string $title;
-    private ?string $isbn;
-    private bool $obliged;
-    private Course $course;
+
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
+    private ?string $title = null;
+
+    #[ORM\Column(type: Types::BIGINT, nullable: true)]
+    private ?string $isbn = null;
+
+    #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
+    private ?bool $obliged = false;
+
+    #[ORM\ManyToOne(inversedBy: 'books')]
+    #[ORM\JoinColumn(name: "course",nullable: false)]
+    private ?Course $course = null;
+
+    #[ORM\ManyToMany(targetEntity: Reservation::class, inversedBy: 'books')]
+    private Collection $reservations;
 
     /**
-     * @param string $title book title
-     * @param string|null $isbn book ISBN number
-     * @param Course $course course in which the book is used
-     * @param bool $obliged indication if book is obliged or not, defaults to not obliged if not given
+     * Entity constructor must have no parameters
      */
-    public function __construct(string $title, ?string $isbn, Course $course, bool $obliged = false) {
-        $this->title = $title;
-        $this->isbn = $isbn;
-        $this->obliged = $obliged;
-        $this->course = $course;
+    public function __construct() {
+        $this->reservations = new ArrayCollection();
     }
 
     /**
@@ -27,15 +45,6 @@ class Book {
      */
     public function getId(): ?int {
         return $this->id;
-    }
-
-    /**
-     * @param int|null $id unique id from the database
-     * @return Book current book object
-     */
-    protected function setId(?int $id): Book {
-        $this->id = $id;
-        return $this;
     }
 
     /**
@@ -94,11 +103,42 @@ class Book {
     }
 
     /**
-     * @param Course $course course in which the book is used
+     * @param Course|null $course course in which the book is used
      * @return Book current book object
      */
-    public function setCourse(Course $course): Book {
+    public function setCourse(?Course $course): Book {
         $this->course = $course;
+        return $this;
+    }
+
+    /**
+     * @return Collection<Reservation> all reservations for this book
+     */
+    public function getReservations(): Collection {
+        return $this->reservations;
+    }
+
+    /**
+     * @param Reservation $reservation reservation to add to the book
+     * @return Book current book object
+     */
+    public function addReservation(Reservation $reservation): Book {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->addBook($this);
+        }
+        return $this;
+    }
+
+    /**
+     * @param Reservation $reservation reservation to be removed from the book
+     * @return Book current book object
+     */
+    public function removeReservation(Reservation $reservation): Book {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            $reservation->removeBook($this);
+        }
         return $this;
     }
 

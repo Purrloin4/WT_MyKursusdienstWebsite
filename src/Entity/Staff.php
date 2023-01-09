@@ -2,34 +2,29 @@
 
 namespace App\Entity;
 
-class Staff {
-    private ?int $id = null;
-    private string $name;
-    private string $email;
+use App\Repository\StaffRepository;
+use Doctrine\ORM\Mapping as ORM;
 
-    /**
-     * @param string $name staff full name
-     * @param string $email staff email
-     */
-    public function __construct(string $name, string $email) {
-        $this->name = $name;
-        $this->email = $email;
-    }
+#[ORM\Entity(repositoryClass: StaffRepository::class)]
+#[ORM\Table('staff')]
+class Staff
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $id = null;
+
+    #[ORM\Column(type: "string", length: 30, nullable: false)]
+    private ?string $name = null;
+
+    #[ORM\Column(type: "string", length: 50, nullable: false)]
+    private ?string $email = null;
 
     /**
      * @return int|null unique id from the database
      */
     public function getId(): ?int {
         return $this->id;
-    }
-
-    /**
-     * @param int|null $id unique id from the database
-     * @return Staff current staff object
-     */
-    protected function setId(?int $id): Staff {
-        $this->id = $id;
-        return $this;
     }
 
     /**

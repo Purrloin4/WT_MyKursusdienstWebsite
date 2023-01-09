@@ -2,20 +2,40 @@
 
 namespace App\Entity;
 
-class Reservation {
-    private ?int $id;
-    private Student $student;
-    private DateTime $created;
-    private array $books;
+use App\Repository\ReservationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: ReservationRepository::class)]
+#[ORM\Table('reservation')]
+class Reservation
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer", nullable: false)]
+    private ?int $id = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(name: "student", nullable: false)]
+    private ?Student $student = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
+    private ?\DateTime $created = null;
+
+    #[ORM\ManyToMany(targetEntity: Book::class, mappedBy: 'reservations')]
+    #[ORM\JoinTable(name: "reservation_book")]
+    #[ORM\JoinColumn(name: "reservation")]
+    #[ORM\InverseJoinColumn(name: "book")]
+    private Collection $books;
 
     /**
-     * @param Student $student student object for the new reservation
-     * @param array $books array of books in the reservation
+     * Entity constructor must have no parameters
      */
-    public function __construct(Student $student, array $books = array()) {
-        $this->student = $student;
-        $this->books = $books;
-        $this->created = new DateTime();
+    public function __construct() {
+        $this->created = new \DateTime();
+        $this->books = new ArrayCollection();
     }
 
     /**
@@ -23,15 +43,6 @@ class Reservation {
      */
     public function getId(): ?int {
         return $this->id;
-    }
-
-    /**
-     * @param int|null $id unique id from the database
-     * @return Reservation current reservation object
-     */
-    protected function setId(?int $id): Reservation {
-        $this->id = $id;
-        return $this;
     }
 
     /**
@@ -51,32 +62,47 @@ class Reservation {
     }
 
     /**
-     * @return DateTime the time when the reservation was created
+     * @return \DateTime the time when the reservation was created
      */
-    public function getCreated(): DateTime {
+    public function getCreated(): \DateTime {
         return $this->created;
     }
 
     /**
-     * @param DateTime $created the creation time of the reservation
+     * @param \DateTime $created the creation time of the reservation
      */
-    protected function setCreated(DateTime $created): void {
+    public function setCreated(\DateTime $created): void {
         $this->created = $created;
     }
 
     /**
-     * @return array all books in current reservation
+     * @return Collection<Book> all books in this reservation
      */
-    public function getBooks(): array {
+    public function getBooks(): Collection {
         return $this->books;
     }
 
     /**
-     * @param Book $book book to add to order
+     * @param Book $book book to add to the reservation
      * @return Reservation current reservation object
      */
     public function addBook(Book $book): Reservation {
-        $this->books[] = $book;
+        if (!$this->books->contains($book)) {
+            $this->books->add($book);
+            $book->addReservation($this);
+        }
+        return $this;
+    }
+
+    /**
+     * @param Book $book book to remove from the reservation
+     * @return Reservation current reservation object
+     */
+    public function removeBook(Book $book): Reservation {
+        if ($this->books->contains($book)) {
+            $this->books->removeElement($book);
+            $book->removeReservation($this);
+        }
         return $this;
     }
 
