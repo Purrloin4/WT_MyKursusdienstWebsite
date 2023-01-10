@@ -2,6 +2,9 @@
 
 {% block content %}
     <section>
-        <h3>The reservation wizard...</h3>
+        <h3>Book reservation</h3>
+        <p>Follow this 2 step wizard and make a reservation for the books you need.
+            Once confirmed you can pick them up at our KD and pay at the desk</p>
+        {{ form(reservation_form) }}
     </section>
 {% endblock %}

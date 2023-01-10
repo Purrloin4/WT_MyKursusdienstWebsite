@@ -22,4 +22,18 @@ class BookRepository extends ServiceEntityRepository {
         parent::__construct($registry, Book::class);
     }
 
+    /**
+     * @return Book[] all courses that have books
+     */
+    public function findByFase(int $fase) : array {
+        $entityManager = $this->getEntityManager();
+        // ref: https://www.doctrine-project.org/projects/doctrine-orm/en/current/reference/dql-doctrine-query-language.html
+        $query = $entityManager->createQuery('
+                SELECT b FROM App\Entity\Book b
+                INNER JOIN b.course c
+                WHERE c.fase = :fase
+        ')->setParameter('fase',$fase);
+        return $query->getResult();
+    }
+
 }
