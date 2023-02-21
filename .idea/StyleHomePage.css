@@ -46,13 +46,13 @@ header nav li a{
 }
 
 main {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
     margin-top: 20px;
     background-color: white;
-    display: flex;
     border-radius: 5px;
-    flex-direction: row;
-    gap: 100px;
+    gap: 0px;
     padding: 20px;
 }
 
@@ -60,8 +60,24 @@ main ul{
     list-style: none;
 }
 
+hr {
+    visibility: visible;
+    border: 1px solid darkslategray;
+}
+
 a {
     color: darkslategray;
+}
+
+@media screen and (min-width: 780px) {
+    main {
+        flex-direction: row;
+        gap: 100px;
+    }
+
+    hr {
+        visibility: hidden;
+    }
 }
 
 
