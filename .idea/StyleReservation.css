@@ -43,28 +43,21 @@ header nav a{
     width: 25%;
 }
 
-main {
+
+section{
     display: flex;
     flex-direction: column;
+    gap: 10px;
     margin-bottom: 20px;
     margin-top: 20px;
     background-color: white;
     border-radius: 5px;
-    gap: 0px;
     padding: 20px;
 }
 
-main ul{
+ button{
     list-style: none;
-}
-
-hr {
-    visibility: visible;
-    border: 1px solid darkslategray;
-}
-
-a {
-    color: darkslategray;
+    width: 200px;
 }
 
 @media screen and (min-width: 780px) {
@@ -83,6 +76,7 @@ a {
 
 
 }
+
 
 @media screen and (max-width: 780px){
     .logo{
@@ -106,5 +100,3 @@ a {
 
 
 }
-
-

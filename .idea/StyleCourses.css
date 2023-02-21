@@ -1,6 +1,6 @@
 body{
     background-color: #d5e7f3;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Shantell Sans', cursive;
 }
 
 header, footer {
@@ -15,32 +15,32 @@ header {
     display: flex;
     flex-direction: row;
     padding: 20px;
+    align-items: center;
     justify-content: space-evenly;
 }
 
+
 header h2 {
-    color: azure;
-    font-size: 20px;
+    font-size: 15px;
+    position: relative;
+    top: -30px;
+    left: 70px;
 }
 
 header nav{
     display: flex;
     flex-direction: row;
     list-style: none;
-    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-header nav li{
-    padding: 20px;
-}
-
-header nav li a{
-    float: left;
+header nav a{
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+    width: 25%;
 }
 
 main {
@@ -56,3 +56,42 @@ a {
 }
 
 
+@media screen and (min-width: 780px) {
+    main {
+        flex-direction: row;
+        gap: 100px;
+    }
+
+    hr {
+        visibility: hidden;
+    }
+
+    .logo{
+        visibility: visible;
+    }
+
+
+}
+
+@media screen and (max-width: 780px){
+    .logo{
+        visibility: hidden;
+        width: 0px;
+    }
+
+    header nav{
+        width: 100%;
+    }
+
+    header nav a{
+        width: 25%;
+    }
+
+    header{
+        position: relative;
+        height: 20px
+    }
+
+
+
+}
