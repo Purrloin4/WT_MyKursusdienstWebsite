@@ -52,6 +52,12 @@ section{
     margin-top: 20px;
     background-color: white;
     border-radius: 5px;
+    padding: 20px;
+}
+
+ button{
+    list-style: none;
+    width: 200px;
 }
 
 @media screen and (min-width: 780px) {
