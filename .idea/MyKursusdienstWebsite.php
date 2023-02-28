@@ -61,7 +61,7 @@
         Is there also a mobile app for this site? (Patrick)
         Re: No Patrick, just use a browser on your phone thank you
         <br> <br>
-        <a href= "feedbackpage.be"> Add feedback... </a> </p>
+        <a href= "feedback.html"> Add feedback... </a> </p>
     </aside>
 
 </main>
