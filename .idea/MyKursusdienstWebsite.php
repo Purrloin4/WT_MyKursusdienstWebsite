@@ -20,7 +20,7 @@
     </div>
 
     <nav>
-        <li><a href="MyKursusdienstWebsite.html ">Home</a></li>
+        <li><a href="MyKursusdienstWebsite.php">Home</a></li>
         <li><a href="courses.html">Courses</a></li>
         <li><a href="reservation.html">Reservation</a></li>
         <li><a href="about.html">About</a></li>
