@@ -31,7 +31,11 @@
 <main class = "main" >
 
     <section class = "info">
-        <h2>Welcome to the CouBooks website</h2>
+        <h2><?php
+            require_once('Greeter.php');
+            $greeter = new Greeter();
+            echo $greeter->getGreeting() . ', welcome to the CouBooks website!';
+            ?></h2>
         <h3>Are you ready to study ?</h3>
         <p>When in need for the conect course books or printed slides, you should have a look to our
             course book website for EA. Here you can find an overview of all course material that is
@@ -68,3 +72,4 @@
 </footer>
 </body>
 </html>
+
