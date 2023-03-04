@@ -7,6 +7,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $text = $_POST['feedback'];
     $feedback = new Feedback($author, $text);
     $feedback->save();
+
+    if ($feedback->getId()) {
+        echo "<script>alert('Feedback submitted successfully!');</script>";
+    }
 }
 ?>
 
