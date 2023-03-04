@@ -6,17 +6,18 @@ class Feedback
     private string $author;
     private string $text;
     private DateTime $created;
+    private $db;
 
-    public function __construct($author, $text, $id = null, $created)
+    public function __construct($author, $text)
     {
         $this->author = $author;
         $this->text = $text;
-        $this->id = $id;
-        $this->created = $created;
+        $this->db = (new Database())-> getConnection();
     }
 
     public function save() : Feedback
     {
+        $db = (new Database())->getConnection();
         $statement = $db->prepare("INSERT INTO feedback (author, text, created) VALUES (:author, :text, :created)");
         $statement->execute([
             'author' => $this->getAuthor(),
@@ -26,15 +27,18 @@ class Feedback
 
         $this->id = $db->lastInsertId();
         $this->created = date('Y-m-d H:i:s');
+
+        return $this;
     }
 
     static function getAllFeedback() : array
     {
+        $db = (new Database())->getConnection();
         $stm = $db->prepare('SELECT ID, text, author, created FROM feedback');
         $stm->execute();
         $result = array();
         while ($item = $stm->fetch()) {
-            $feedback = new Feedback($item['text'], $item['author']);
+            $feedback = new Feedback($item['author'], $item['text']);
             $feedback->setId($item['ID']);
             $feedback->setCreated(new DateTime($item['created']));
             $result[] = $feedback;

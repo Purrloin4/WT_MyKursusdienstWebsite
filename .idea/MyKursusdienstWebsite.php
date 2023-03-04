@@ -56,12 +56,15 @@
         </ul>
 
         <h3>Feedback</h3>
-        <p>This concept is awesome! Also, this site looks nice and stylish xxx(Jeroen)
-        <br> <br>
-        Is there also a mobile app for this site? (Patrick)
-        Re: No Patrick, just use a browser on your phone thank you
-        <br> <br>
-        <a href= "feedback.html"> Add feedback... </a> </p>
+        <?php
+        require_once ('Database.php');
+        require_once('Feedback.php');
+        $feedback = Feedback::getAllFeedback();
+        foreach ($feedback as $item) {
+            echo '<p>' . $item->getText() . ' (' . $item->getAuthor() . ')' . '</p>';
+        }
+        ?>
+        <a href= "feedback.html"> Add feedback... </a>
     </aside>
 
 </main>
