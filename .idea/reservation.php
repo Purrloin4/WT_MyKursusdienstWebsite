@@ -1,3 +1,8 @@
+<?php
+require_once('shop.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,7 +51,6 @@
   </div>
       <button type="button" class="default-btn next-step">Continue to next step</button>
   </section>
-
     <section class = "step2">
   <h2>STEP 2: WHAT BOOKS DO YOU NEED?</h2>
   <p>Select the books you wish to order ...</p>
