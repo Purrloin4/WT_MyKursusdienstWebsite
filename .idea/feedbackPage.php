@@ -1,3 +1,15 @@
+<?php
+require_once ('Database.php');
+require_once('Feedback.php');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $author = $_POST['author'];
+    $text = $_POST['feedback'];
+    $feedback = new Feedback($author, $text);
+    $feedback->save();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,12 +38,12 @@
 
 <main>
   <h2>ADD FEEDBACK...</h2>
-    <form action="feedback.html" method="post">
-    <label for="name">Author:</label>
-    <input type="text" id="name" name="name" placeholder="Your name..">
+    <form action="feedbackPage.php" method="post">
+    <label for="author">Author:</label>
+    <input type="text" id="author" name="author" placeholder="Your name.." required>
 
     <label for="feedback">Feedback:</label>
-    <textarea id="feedback" name="feedback" placeholder="Write something.." style="height:50px"></textarea>
+    <textarea id="feedback" name="feedback" placeholder="Write something.." style="height:50px" required></textarea>
 
     <input type="submit" value="Submit">
     </form>

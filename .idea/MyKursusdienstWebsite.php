@@ -64,7 +64,7 @@
             echo '<p>' . $item->getText() . ' (' . $item->getAuthor() . ')' . '</p>';
         }
         ?>
-        <a href= "feedback.html"> Add feedback... </a>
+        <a href= "feedbackPage.php"> Add feedback... </a>
     </aside>
 
 </main>

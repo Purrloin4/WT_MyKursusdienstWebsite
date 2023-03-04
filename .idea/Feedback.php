@@ -26,7 +26,7 @@ class Feedback
         ]);
 
         $this->id = $db->lastInsertId();
-        $this->created = date('Y-m-d H:i:s');
+        $this->created = new DateTime();
 
         return $this;
     }
