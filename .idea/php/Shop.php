@@ -1,28 +1,15 @@
 <?php
 
-require_once 'Database.php';
+require_once 'DataBase.php';
 
-$db = (new Database())->getConnection();
-$shop = new Shop(3);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['step1'])) {
-        $shop->storeOrder($_POST);
-    } else {
-        $shop->processStep($_POST['step'], $_POST);
-    }
-}
 
-$step1Data = $shop->getStep(1);
-$step2Data = $shop->getStep(2);
-$step3Data = $shop->getStep(3);
 class Shop {
 private $steps;
-private $stepData;
+
 
 public function __construct($steps) {
-$this->steps = $steps;
-$this->stepData = array_fill(0, $steps, []);
+$this->steps = $_SESSION['steps'] ?? 1;
 }
 
 public function storeOrder($data) {

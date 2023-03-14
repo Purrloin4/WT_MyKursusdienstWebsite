@@ -1,6 +1,12 @@
 <?php
 require_once('shop.php');
 
+$shop = new Shop();
+
+    if (isset($_POST['submit'])) {
+        $shop->processStep($_POST);
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +40,7 @@ require_once('shop.php');
 
 <main>
 
+    <?php if($shop->getStep() == 1) { ?>
   <section class = "step1">
   <h2>STEP 1: WHO ARE YOU</h2>
   <p>Please provide some info about you, so we can search for the books you need...</p>
@@ -44,32 +51,46 @@ require_once('shop.php');
         <option value="1">First Bachelor</option>
         <option value="2">Second Bachelor</option>
         <option value="3">Third Bachelor</option>
+        <option value="4">Master</option>
       </select>
 
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" placeholder="Your email address">
   </div>
-      <button type="button" class="default-btn next-step">Continue to next step</button>
+      <button type="submit" >Continue to next step</button>
   </section>
+
+    <?php } elseif($shop->getStep() == 2) { ?>
     <section class = "step2">
   <h2>STEP 2: WHAT BOOKS DO YOU NEED?</h2>
   <p>Select the books you wish to order ...</p>
     <div class = "books">
-        <input type="checkbox" id="book1" name="book1" value="book1">
-        <label for="book1"> Computer Networking: A Top Down Approach</label><br>
-        <input type="checkbox" id="book2" name="book2" value="book2">
-        <label for="book2"> Silberschatz's Operating System Concepts</label><br>
+        <?php foreach ($shop->getBooksPossible() as $book) {
+                $bookId = $book->getId();
+                $bookTitle = $book->getTitle();
+                echo "<div ><input type = \"checkbox\" value=\"$bookId\" id = \"book_$bookId\" name = \"books[]\" ><label for=\"book_$bookId\">$bookTitle</label ></div>";
+            } ?>
+
     </div>
-        <button type="button" class="default-btn next-step">Continue to next step</button>
+        }
+        <button type="submit">Continue to next step</button>
     </section>
 
+    <?php } elseif($shop->getStep() == 3) { ?>
 <section class = "step3">
   <h2>YOU HAVE ORDERED...</h2>
   <p>Below you find an overview of the books you have reserved. Once you confirm your reservation you pick them up at our KD and pay at the desk</p>
-  /* TODO: list of selected books in step2 */
-    <button type="button" class="default-btn next-step">Continue to next step</button>
-</section>
+    <div class = "books">
+        <ul>
+            <?php foreach ($shop->getBooksSelected() as $book) {
+                $bookTitle = $book->getTitle();
+                echo "<li>$bookTitle</li>";
+            } ?>
 
+        </ul>
+    <button type="submit">Continue to next step</button>
+</section>
+    <?php } ?>
 </main>
 
 <footer class = "footer">
