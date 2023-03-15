@@ -1,6 +1,6 @@
 <?php
-require_once ('Database.php');
-require_once('Feedback.php');
+require_once ('php/Database.php');
+require_once('php/Feedback.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $author = $_POST['author'];
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8">
   <title>feedback</title>
   <meta name = "Cédric" content = "feedback">
-  <link rel="stylesheet" href="StyleFeedback.css">
+  <link rel="stylesheet" href="css/StyleFeedback.css">
 </head>
 <body>
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>MyKursusdienst</title>
     <meta name = "Cédric" content = "HomepageKursusdienst">
-    <link rel="stylesheet" href="StyleHomePage.css">
+    <link rel="stylesheet" href="css/StyleHomePage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -21,8 +21,8 @@
 
     <nav>
         <li><a href="MyKursusdienstWebsite.php">Home</a></li>
-        <li><a href="courses.html">Courses</a></li>
-        <li><a href="reservation.html">Reservation</a></li>
+        <li><a href="courses.php">Courses</a></li>
+        <li><a href="reservation.php">Reservation</a></li>
         <li><a href="about.html">About</a></li>
     </nav>
 
@@ -32,7 +32,7 @@
 
     <section class = "info">
         <h2><?php
-            require_once('Greeter.php');
+            require_once('php/Greeter.php');
             $greeter = new Greeter();
             echo $greeter->getGreeting() . ', welcome to the CouBooks website!';
             ?></h2>
@@ -57,8 +57,8 @@
 
         <h3>Feedback</h3>
         <?php
-        require_once ('Database.php');
-        require_once('Feedback.php');
+        require_once ('php/Database.php');
+        require_once('php/Feedback.php');
         $feedback = Feedback::getAllFeedback();
         foreach ($feedback as $item) {
             echo '<p>' . $item->getText() . ' (' . $item->getAuthor() . ')' . '</p>';
