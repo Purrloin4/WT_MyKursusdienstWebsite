@@ -1,5 +1,6 @@
 <?php
 
+namespace php;
 class Greeter
 {
 
@@ -9,7 +10,7 @@ class Greeter
 
     }
 
-    public function getGreeting()
+    public function getGreeting(): string
     {
         $greetings = array('Hello', 'Hi', 'Howdy', 'Greetings', 'Boshoer');
         $index = array_rand($greetings);

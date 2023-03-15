@@ -1,5 +1,5 @@
 <?php
-require_once ('php/Database.php');
+require_once('php/DataBase.php');
 require_once('php/Feedback.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -33,9 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <nav>
     <li><a href="MyKursusdienstWebsite.php">Home</a></li>
-    <li><a href="courses.html">Courses</a></li>
-    <li><a href="reservation.html">Reservation</a></li>
-    <li><a href="about.html">About</a></li>
+    <li><a href="courses.php">Courses</a></li>
+    <li><a href="reservation.php">Reservation</a></li>
+    <li><a href="About.html">About</a></li>
   </nav>
 
 </header>

@@ -3,7 +3,7 @@
 require_once 'php/DataBase.php';
 require_once 'Staff.php';
 
-class course
+class Course
 {
     private string $id;
     private string $name;
@@ -86,7 +86,7 @@ class course
         $this->fase = $fase;
     }
 
-    static function getcoursebyID(String $id) : course
+    static function getcoursebyID(String $id): Course
     {
         $db = (new Database())->getConnection();
         $stm = $db->prepare('SELECT id, name, staff, fase FROM course WHERE id like :id');
@@ -96,13 +96,13 @@ class course
 
         while ($item = $stm->fetch()) {
             $staff = Staff::getStaffByID($item['staff']);
-            $course = new course($item['name'], $staff, $item['fase']);
+            $course = new Course($item['name'], $staff, $item['fase']);
             $course->setId($item['id']);
         };
         return $course;
     }
 
-    static function getallcourses() : array
+    static function getallcourses(): array
     {
         $db = (new Database())->getConnection();
         $stm = $db->prepare('SELECT id, name, staff, fase FROM course');
@@ -111,14 +111,14 @@ class course
         $courses = [];
         while ($item = $stm->fetch()) {
             $staff = Staff::getStaffByID($item['staff']);
-            $course = new course($item['name'], $staff, $item['fase']);
+            $course = new Course($item['name'], $staff, $item['fase']);
             $course->setId($item['id']);
             $courses[] = $course;
         };
         return $courses;
     }
 
-    static function getCoursesByFase(int $fase) : array
+    static function getCoursesByFase(int $fase): array
     {
         $db = (new Database())->getConnection();
         $stm = $db->prepare('SELECT id, name, staff, fase FROM course WHERE fase like :fase');
@@ -136,7 +136,7 @@ class course
         return $courses;
     }
 
-    public function save() : course
+    public function save(): Course
     {
         $db = (new Database())->getConnection();
         $statement = $db->prepare("INSERT INTO course (name, staff, fase) VALUES (:name, :staff, :fase)");
@@ -150,8 +150,6 @@ class course
 
         return $this;
     }
-
-
 
 
 }

@@ -1,9 +1,10 @@
 <?php
 
-require_once 'php/DataBase.php';
-require_once 'course.php';
 
-class book
+require_once 'php/DataBase.php';
+require_once 'Course.php';
+
+class Book
 {
     private int $id;
     private string $title;
@@ -89,7 +90,6 @@ class book
     }
 
 
-
     /**
      * @return bool
      */
@@ -112,9 +112,9 @@ class book
         $db = DataBase::getConnection();
         $stmt = $db->prepare("SELECT * FROM book WHERE id = :id");
         $stmt->execute([':id', $id]);
-        while ($item = $stm->fetch()) {
+        while ($item = $stmt->fetch()) {
             $course = course::getCourseById($item['course_id']);
-            $book = new book($item['title'], $item['isbn'], $item['obliged'], $course);
+            $book = new Book($item['title'], $item['isbn'], $item['obliged'], $course);
             $book->setId($item['id']);
         };
         return $book;
@@ -124,11 +124,11 @@ class book
     {
         $db = DataBase::getConnection();
         $stmt = $db->prepare("SELECT * FROM book WHERE course = :courseId");
-        $stmt->execute([':courseId'=> $courseId]);
+        $stmt->execute([':courseId' => $courseId]);
         $books = [];
         while ($item = $stmt->fetch()) {
             $course = course::getCourseById($item['course']);
-            $book = new book($item['title'], $item['isbn'], $item['obliged'], $course);
+            $book = new Book($item['title'], $item['isbn'], $item['obliged'], $course);
             $book->setId($item['id']);
             $books[] = $book;
         };
@@ -139,7 +139,7 @@ class book
     public function save()
     {
         $db = DataBase::getConnection();
-        $stmt = $db->prepare("INSERT INTO book (title, isbn, obliged, course_id) VALUES (:title, :isbn, :obliged, :course_id)");
+        $stmt = $db->prepare("INSERT INTO book (title, isbn, obliged, course) VALUES (:title, :isbn, :obliged, :course_id)");
         $stmt->execute([
             ':title' => $this->getTitle(),
             ':isbn' => $this->getIsbn(),

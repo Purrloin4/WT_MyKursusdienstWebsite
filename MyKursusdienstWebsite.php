@@ -23,7 +23,7 @@
         <li><a href="MyKursusdienstWebsite.php">Home</a></li>
         <li><a href="courses.php">Courses</a></li>
         <li><a href="reservation.php">Reservation</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="About.html">About</a></li>
     </nav>
 
 </header>
@@ -33,6 +33,7 @@
     <section class = "info">
         <h2><?php
             require_once('php/Greeter.php');
+
             $greeter = new Greeter();
             echo $greeter->getGreeting() . ', welcome to the CouBooks website!';
             ?></h2>
@@ -47,7 +48,7 @@
     </section>
 
     <aside>
-        <hr  class = "line"> </hr>
+        <hr  class = "line">
         <h3>Opening Hours :</h3>
         <ul>
             <li> Mon: 9am-11am</li>
@@ -57,7 +58,6 @@
 
         <h3>Feedback</h3>
         <?php
-        require_once ('php/Database.php');
         require_once('php/Feedback.php');
         $feedback = Feedback::getAllFeedback();
         foreach ($feedback as $item) {

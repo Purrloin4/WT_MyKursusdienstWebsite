@@ -1,8 +1,12 @@
 <?php
 
-require_once 'DataBase.php';
+namespace php\models;
+use Database;
 
-class student{
+require_once 'php/DataBase.php';
+
+class Student
+{
     private ?int $id = null;
     private string $email;
 
@@ -11,7 +15,7 @@ class student{
         $this->email = $email;
     }
 
-    static function getStudentFromEmail() : student
+    static function getStudentFromEmail(string $email): student
     {
         $db = (new Database())->getConnection();
         $stm = $db->prepare('SELECT id, email FROM student WHERE email like :email');
@@ -20,13 +24,13 @@ class student{
         ]);
 
         while ($item = $stm->fetch()) {
-            $student = new student($item['email']);
+            $student = new Student($item['email']);
             $student->setId($item['id']);
         };
         return $student;
     }
 
-    public function save() : student
+    public function save(): Student
     {
         $db = (new Database())->getConnection();
         $statement = $db->prepare("INSERT INTO student (email) VALUES (:email)");
@@ -58,7 +62,7 @@ class student{
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -66,7 +70,7 @@ class student{
     /**
      * @param string $email
      */
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
     }

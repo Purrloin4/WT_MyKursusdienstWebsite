@@ -1,5 +1,8 @@
 <?php
 
+namespace php;
+use Database;
+
 class Feedback
 {
     private ?int $id = null;
@@ -12,10 +15,10 @@ class Feedback
     {
         $this->author = $author;
         $this->text = $text;
-        $this->db = (new Database())-> getConnection();
+        $this->db = (new Database())->getConnection();
     }
 
-    public function save() : Feedback
+    public function save(): Feedback
     {
         $db = (new Database())->getConnection();
         $statement = $db->prepare("INSERT INTO feedback (author, text, created) VALUES (:author, :text, :created)");
@@ -31,7 +34,7 @@ class Feedback
         return $this;
     }
 
-    static function getAllFeedback() : array
+    static function getAllFeedback(): array
     {
         $db = (new Database())->getConnection();
         $stm = $db->prepare('SELECT ID, text, author, created FROM feedback');
@@ -93,7 +96,6 @@ class Feedback
     {
         $this->created = $created;
     }
-
 
 
 }

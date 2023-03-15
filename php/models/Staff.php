@@ -1,8 +1,9 @@
 <?php
 
+
 require_once 'php/DataBase.php';
 
-class staff
+class Staff
 {
     private ?int $id = null;
     private string $name;
@@ -66,7 +67,7 @@ class staff
         $this->email = $email;
     }
 
-    public function save() : staff
+    public function save(): Staff
     {
         $db = (new Database())->getConnection();
         $statement = $db->prepare("INSERT INTO staff (name, email) VALUES (:name, :email)");
@@ -80,7 +81,7 @@ class staff
         return $this;
     }
 
-    static function getstaffbyid($id)
+    static function getStaffByID($id): Staff
     {
         $db = (new Database())->getConnection();
         $stm = $db->prepare('SELECT id, name, email FROM staff WHERE id like :id');
