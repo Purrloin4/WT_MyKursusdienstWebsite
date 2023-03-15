@@ -1,7 +1,7 @@
 <?php
 
-require_once 'DataBase.php';
-require_once 'student.php';
+require_once 'php/DataBase.php';
+require_once 'php/models/student.php';
 
 class reservation
 {
