@@ -95,7 +95,8 @@ class course
         ]);
 
         while ($item = $stm->fetch()) {
-            $course = new course($item['name'], $item['staff'], $item['fase']);
+            $staff = Staff::getStaffByID($item['staff']);
+            $course = new course($item['name'], $staff, $item['fase']);
             $course->setId($item['id']);
         };
         return $course;

@@ -90,8 +90,8 @@ class staff
 
         while ($item = $stm->fetch()) {
             $staff = new staff($item['id'], $item['name'], $item['email']);
+            $staff->setId($item['id']);
         };
-        $staff->setId($item['id']);
         return $staff;
     }
 

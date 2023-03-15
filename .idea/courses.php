@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Courses</title>
-  <link rel="stylesheet" href="StyleCourses.css">
+  <link rel="stylesheet" href="css/StyleCourses.css">
 </head>
 
 <body>
@@ -17,8 +17,8 @@
 
   <nav>
     <li><a href="MyKursusdienstWebsite.php ">Home</a></li>
-    <li><a href="courses.html">Courses</a></li>
-    <li><a href="reservation.html">Reservation</a></li>
+    <li><a href="courses.php">Courses</a></li>
+    <li><a href="reservation.php">Reservation</a></li>
     <li><a href="about.html">About</a></li>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,16 +30,20 @@
 
   <p>Below you can find an overview of all available courses.</p>
 
-  <h3>Computernetworks</h3>
-  <ul>
-    <li>Computer networking: a top down approach</li>
-  </ul>
+    <?php
+    require_once ('php/models/course.php');
+    require_once ('php/models/book.php');
 
-  <h3>Operating Systems</h3>
-  <ul>
-    <li>Silberschatz's Operating System Concepts</li>
-    <li>Printout version of lecture slides</li>
-  </ul>
+    foreach (course::getAllCourses() as $course) {
+        echo '<h3>' . $course->getname() . '</h3>';
+        echo '<ul>';
+        $books = book::getBooksByCourseId($course->getId());
+        foreach ($books as $book) {
+            echo '<li>' . $book->getTitle() . '</li>';
+        }
+        echo '</ul>';
+    }
+    ?>
 
 </main>
 

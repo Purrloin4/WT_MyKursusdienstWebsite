@@ -120,14 +120,14 @@ class book
         return $book;
     }
 
-    public function getBooksByCourseId($courseId)
+    public static function getBooksByCourseId($courseId)
     {
         $db = DataBase::getConnection();
-        $stmt = $db->prepare("SELECT * FROM book WHERE course_id = :courseId");
-        $stmt->execute([':courseId', $courseId]);
+        $stmt = $db->prepare("SELECT * FROM book WHERE course = :courseId");
+        $stmt->execute([':courseId'=> $courseId]);
         $books = [];
-        while ($item = $stm->fetch()) {
-            $course = course::getCourseById($item['course_id']);
+        while ($item = $stmt->fetch()) {
+            $course = course::getCourseById($item['course']);
             $book = new book($item['title'], $item['isbn'], $item['obliged'], $course);
             $book->setId($item['id']);
             $books[] = $book;

@@ -6,6 +6,7 @@ class Database {
     private $password = 'PWD';
     private $database = 'coubooks';
     private $connection;
+    private static DataBase $instance;
 
     public function __construct() {
         try {
@@ -17,7 +18,11 @@ class Database {
         }
     }
 
-    public function getConnection() {
-        return $this->connection;
+    public static function getConnection(): PDO {
+        if (!isset(self::$instance)) {
+            self::$instance = new DataBase();
+        }
+        return self::$instance->connection;
     }
+
 }
