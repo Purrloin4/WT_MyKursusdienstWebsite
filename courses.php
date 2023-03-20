@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Courses</title>
   <link rel="stylesheet" href="css/StyleCourses.css">
+    <script defer src="javascript/courses.js"></script>
 </head>
 
 <body>
@@ -26,6 +27,9 @@
   </nav>
 </header>
 
+
+
+
 <main class = "main">
 
   <p>Below you can find an overview of all available courses.</p>
@@ -40,11 +44,14 @@
         echo '<ul>';
         $books = book::getBooksByCourseId($course->getId());
         foreach ($books as $book) {
-            echo '<li>' . $book->getTitle() . '</li>';
+            $bookTitle = $book->getTitle();
+            $bookIsbn = $book->getIsbn();
+            echo '<li class=\"Book\" data-isbn=\"$bookIsbn\">' . $bookTitle . '</li>';
         }
         echo '</ul>';
     }
     ?>
+    <p id="info-block">Extra info : <em id="info-text">click a book title for extra info</em></p>
 
 </main>
 

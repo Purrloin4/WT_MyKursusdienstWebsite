@@ -55,6 +55,10 @@ a {
     color: darkslategray;
 }
 
+ul {
+    cursor: pointer;
+}
+
 
 @media screen and (min-width: 780px) {
     main {
