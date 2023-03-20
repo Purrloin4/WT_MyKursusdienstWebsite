@@ -58,7 +58,7 @@ if (isset($_POST['submit'])) {
                     <label for="email">Email:</label>
                     <input type="text" id="email" name="email" placeholder="Your email address">
                 </div>
-                <button type="submit" value="submit">Continue to next step</button>
+                <button type="submit" value="submit" name="submit">Continue to next step</button>
             </form>
         </section>
 
@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
 
                 </div>
                 }
-                <button type="submit">Continue to next step</button>
+                <button type="submit" value="submit" name="submit">Continue to next step</button>
             </form>
         </section>
 
@@ -101,7 +101,7 @@ if (isset($_POST['submit'])) {
                          ?>
 
                     </ul>
-                    <button type="submit">Continue to next step</button>
+                    <button type="submit" value="submit" name="submit">Continue to next step</button>
             </form>
         </section>
     <?php } ?>
