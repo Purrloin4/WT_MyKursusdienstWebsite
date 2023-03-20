@@ -5,6 +5,7 @@ require_once 'php/DataBase.php';
 require_once 'php/models/Course.php';
 require_once 'php/models/Book.php';
 require_once 'php/models/Reservation.php';
+require_once 'php/models/Student.php';
 
 
 class Shop
@@ -70,13 +71,13 @@ class Shop
 
     public function storeOrder(array $data): void
     {
-        $studend = Studend::getStudendById($data['email']);
-        if ($studend == null) {
-            $studend = new Studend($data['email']);
-            $studend = $studend->save();
+        $student = Student::getStudentFromEmail($data['email']);
+        if ($student == null) {
+            $student = new Student($data['email']);
+            $student = $student->save();
         }
         $books = $this->getBooksSelected();
-        $order = new Reservation($studend, $books);
+        $order = new Reservation($student, $books);
         $order->save();
     }
 

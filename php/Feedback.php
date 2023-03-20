@@ -1,8 +1,6 @@
 <?php
 
-namespace php;
-use Database;
-
+ require_once 'php/DataBase.php';
 class Feedback
 {
     private ?int $id = null;

@@ -1,8 +1,5 @@
 <?php
 
-namespace php\models;
-use Database;
-
 require_once 'php/DataBase.php';
 
 class Student
