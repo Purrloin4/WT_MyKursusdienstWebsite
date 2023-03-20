@@ -21,8 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <title>feedback</title>
   <meta name = "Cédric" content = "feedback">
   <link rel="stylesheet" href="css/StyleFeedback.css">
+    <script defer src="javascript/feedback.js"></script>
 </head>
 <body>
+
 
 <header class = "header">
 
@@ -49,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <label for="feedback">Feedback:</label>
     <textarea id="feedback" name="feedback" placeholder="Write something.." style="height:50px" required></textarea>
 
-    <input type="submit" value="Submit">
+    <button type="submit" value="Submit" id="submitBtn">Submit</button>
     </form>
 </main>
 
