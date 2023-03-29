@@ -2,7 +2,7 @@
 
 
 require_once 'php/DataBase.php';
-require_once 'Course.php';
+require_once 'php/models/Course.php';
 
 class Book
 {
@@ -111,9 +111,9 @@ class Book
     {
         $db = DataBase::getConnection();
         $stmt = $db->prepare("SELECT * FROM book WHERE id = :id");
-        $stmt->execute([':id', $id]);
+        $stmt->execute([':id'=> $id]);
         while ($item = $stmt->fetch()) {
-            $course = course::getCourseById($item['course_id']);
+            $course = course::getCourseById($item['course']);
             $book = new Book($item['title'], $item['isbn'], $item['obliged'], $course);
             $book->setId($item['id']);
         };

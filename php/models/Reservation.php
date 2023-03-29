@@ -19,20 +19,19 @@ class Reservation
     }
 
 
-    public function save(): reservation
+    public function save(): Reservation
     {
         $db = (new Database())->getConnection();
         $statement = $db->prepare("INSERT INTO reservation (student, created) VALUES (:student_id, :date)");
         $statement->execute([
-            'student_id' => $this->getStudentId(),
-            'book_id' => $this->getBookId(),
-            'date' => $this->getDate()
+            'student_id' => $this->student->getId(),
+            'date' => $this->date->format("Y-m-d H:i:s")
         ]);
 
         $this->id = $db->lastInsertId();
 
 
-        $statement = $db->prepare("INSERT INTO reservation_book (reservation, book) VALUES (:reservation_id, :book_id)");
+        $statement = $db->prepare("INSERT INTO reservation_book (reservation, book) VALUES (:reservation, :book)");
 
         foreach ($this->books as $book) {
             $statement->execute([
@@ -62,19 +61,19 @@ class Reservation
     }
 
     /**
-     * @return int
+     * @return Student
      */
-    public function getStudentId()
+    public function getStudent()
     {
-        return $this->student_id;
+        return $this->student;
     }
 
     /**
-     * @param int $student_id
+     * @param Student $student
      */
-    public function setStudentId($student_id)
+    public function setStudent($student)
     {
-        $this->student_id = $student_id;
+        $this->student = $student;
     }
 
     /**

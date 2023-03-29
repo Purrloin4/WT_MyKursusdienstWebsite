@@ -12,7 +12,7 @@ class Student
         $this->email = $email;
     }
 
-    static function getStudentFromEmail(string $email): student
+    static function getStudentFromEmail(string $email): ?Student
     {
         $db = (new Database())->getConnection();
         $stm = $db->prepare('SELECT id, email FROM student WHERE email like :email');

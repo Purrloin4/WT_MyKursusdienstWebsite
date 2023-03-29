@@ -2,6 +2,7 @@
 
 session_start();
 
+
 require_once 'php/DataBase.php';
 require_once 'php/models/Course.php';
 require_once 'php/models/Book.php';
