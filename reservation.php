@@ -21,6 +21,7 @@ if (isset($_POST['submit'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
           rel="stylesheet">
+    <script defer src="javascript/reservation.js"></script>
 </head>
 <body>
 
@@ -45,6 +46,7 @@ if (isset($_POST['submit'])) {
     <?php if ($shop->getStep() == 1) { ?>
         <section class="step1">
             <h2>STEP 1: WHO ARE YOU</h2>
+            <div id="welcome-back-message"></div>
             <form action="" method="post">
             <p>Please provide some info about you, so we can search for the books you need...</p>
                 <div class="fase&email">
