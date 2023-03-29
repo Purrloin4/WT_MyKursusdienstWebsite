@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 
 require_once 'php/DataBase.php';
 require_once 'php/models/Course.php';
@@ -26,7 +27,7 @@ class Shop
     public function processStep(array $data): void
     {
         $session_data = $_SESSION['order_data'] ?? array();
-        //$session_data = array_merge($session_data, $data);
+        $session_data = array_merge($session_data, $data);
         foreach ($data as $key => $value) {
             $session_data[$key] = $value;
         }
@@ -38,7 +39,7 @@ class Shop
         } else {
             $this->steps++;
         }
-        $_SESSION['order_step'] = $this->steps;
+        $_SESSION['steps'] = $this->steps;
     }
 
 
