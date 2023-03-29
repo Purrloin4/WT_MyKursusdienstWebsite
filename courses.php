@@ -46,7 +46,7 @@
         foreach ($books as $book) {
             $bookTitle = $book->getTitle();
             $bookIsbn = $book->getIsbn();
-            echo '<li class=\"Book\" data-isbn=\"$bookIsbn\">' . $bookTitle . '</li>';
+            echo "<li class='Book' data-isbn='$bookIsbn'>$bookTitle</li>";
         }
         echo '</ul>';
     }
