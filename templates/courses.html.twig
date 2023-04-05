@@ -4,15 +4,7 @@
     <section>
         <p>Below you can find an overview of all available courses.</p>
         <ul>
-            {% for course in courses %}
-            <li>{{ course.name }}
-                <ul>
-                    {% for book in course.books %}
-                    <li class="bookItem">{{ book.title }}</li>
-                    {% endfor %}
-                </ul>
-            </li>
-            {% endfor %}
+
         </ul>
     </section>
 {% endblock %}
