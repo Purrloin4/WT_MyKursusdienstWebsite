@@ -7,74 +7,60 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FeedbackRepository::class)]
-#[ORM\Table('feedback')]
-class Feedback {
-
+class Feedback
+{
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: "integer", nullable: false)]
+    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: "text", nullable: false)]
-    private ?string $text = null;
-
-    #[ORM\Column(type: "string",length: 50, nullable: false)]
+    #[ORM\Column(length: 255)]
     private ?string $author = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
+    #[ORM\Column(length: 255)]
+    private ?string $text = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTime $created = null;
 
-    /**
-     * Entity constructor must have no parameters
-     */
-    public function __construct() {
-        $this->created = new \DateTime();
-    }
-
-    /**
-     * @return int|null unique id from the database
-     */
-    public function getId(): ?int {
+    public function getId(): ?int
+    {
         return $this->id;
     }
 
-    /**
-     * @return string content of the feedback
-     */
-    public function getText(): string {
-        return $this->text;
-    }
-
-    /**
-     * @param string $text content of the feedback
-     * @return Feedback current feedback object
-     */
-    public function setText(string $text): Feedback {
-        $this->text = $text;
-        return $this;
-    }
-
-    /**
-     * @return string feedback author
-     */
-    public function getAuthor(): string {
+    public function getAuthor(): ?string
+    {
         return $this->author;
     }
 
-    /**
-     * @param string $author feedback author
-     * @return Feedback current feedback object
-     */
-    public function setAuthor(string $author): Feedback {
+    public function setAuthor(string $author): self
+    {
         $this->author = $author;
+
         return $this;
     }
 
-    /**
-     * @return \DateTime creation time of the feedback
-     */
-    public function getCreated(): \DateTime {
+    public function getText(): ?string
+    {
+        return $this->text;
+    }
+
+    public function setText(string $text): self
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTime
+    {
         return $this->created;
     }
 
+    public function setCreated(\DateTime $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
 }
