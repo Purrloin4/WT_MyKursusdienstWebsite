@@ -6,7 +6,7 @@
 /* https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
 body {
     background: #D4E7F3;
-    font-family: 'Dosis',sans-serif;
+    font-family: 'Shantell Sans',sans-serif;
     font-size: 15px;
     color: #545454;
 
@@ -16,7 +16,7 @@ body {
 }
 
 header, main, footer {
-    width: 700px;
+    width: 900px;
     box-sizing: border-box;
     /*box-shadow: 10px 10px 10px 5px rgba(0,0,0,.2);*/
     border-radius: 10px;
