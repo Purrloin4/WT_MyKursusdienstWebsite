@@ -4,18 +4,13 @@
     <section>
         <h2>Welcome to the CouBooks website</h2>
         <h3>Are you ready to study ?</h3>
-        <p>
-            When in need for the correct course books or printed slides, you should have a
-            look to our course book website for EA. Here you can find an overview of all course
-            material that is needed for every course within the EA program. Select your fase and see what
-            is needed...
-        </p>
-        <p>
-            This <strong>Course Book Service</strong> site is specially designed
-            as a demonstration for the web technology course.
-            In the end, this page can be found on the development web
-            server <a href="https://studev.groept.be/">studev.groept.be</a>
-            Within this demonstration we will step-by-step create this site.
+        <p>When in need for the connect course books or printed slides, you should have a look to our
+            course book website for EA. Here you can find an overview of all course material that is
+            needed for every course within the EA program. Select your fase and see what is needed...
+            <br/> <br/>
+            This <strong>Course Book Service</strong> site is specially designed as a demonstration for the web
+            technology course. In the end, this page can be found on the development web server
+            <a href = "https://studev.groept.be" target="_blank"> studev.groept.be</a> Within this demonstration we will step-by-step create this site.
         </p>
     </section>
     <aside>
@@ -29,10 +24,7 @@
         </article>
         <article>
             <h3>Feedback</h3>
-            {% for item in feedback %}
-            <p>{{ item.created|date('d/m') }} : {{ item.text }} <em>({{ item.author }})</em></p>
-            {% endfor %}
-            <a href="{{ path('feedback') }}">Add feedback...</a>
+
         </article>
     </aside>
 {% endblock %}

@@ -3,10 +3,10 @@
 <head>
     <title>WebTech Demo</title>
     <meta charset="UTF-8" />
-    <meta name="keywords" content="webtech course demo" />
-    <meta name="description"
-          content="This a demo for the webtech course. But still..." />
-    <link href="https://fonts.googleapis.com/css?family=Dosis:400,500,600,700" rel="stylesheet">
+    <meta name = "description" content = "My own kursusdienst">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css"/>
     {% for stylesheet in stylesheets %}
@@ -23,9 +23,6 @@
     <nav>
         <ul>
             <li><a href="{{ path('home') }}">Home</a></li>
-            <li><a href="{{ path('courses') }}">Courses</a></li>
-            <li><a href="{{ path('reservation') }}">Reservation</a></li>
-            <li><a href="{{ path('about') }}">About</a></li>
         </ul>
     </nav>
 </header>
