@@ -25,6 +25,9 @@
         <article>
             <h3>Feedback</h3>
             <ul>
+                {% for review in feedback %}
+                    <li>{{ review.created | date('d/m') }} : {{ review.text }} - {{ review.author }}</li>
+                {% endfor %}
                 <li><a href="{{ path('feedback') }}">Add feedback ...</a></li>
             </ul>
         </article>

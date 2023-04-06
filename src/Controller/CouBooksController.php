@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
+use App\Repository\FeedbackRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MyCouBooksController extends AbstractController
+class CouBooksController extends AbstractController
 {
     private array $stylesheets;
 
@@ -16,10 +17,11 @@ class MyCouBooksController extends AbstractController
     }
 
     #[Route('/', name: 'home')]
-    public function home(): Response
-    {
+    public function home(FeedbackRepository $feedbackRepo): Response {
+        $feedback = $feedbackRepo->findAll();
         return $this->render('main.html.twig', [
             'stylesheets' => $this->stylesheets,
+            'feedback' => $feedback,
         ]);
     }
 
